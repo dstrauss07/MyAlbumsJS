@@ -1,6 +1,7 @@
 var albumName = document.getElementById("album-name"),
     albumArtist = document.getElementById("album-artist"),
     albumButton = document.getElementById("album-button"),
+    clearButton = document.getElementById("clear-button"),
     albumList = document.getElementById("album-list"),
     genre = document.getElementById("album-genre"),
     nextId = 0,
@@ -13,7 +14,14 @@ var Album = function Album(albumName, albumArtist, genre){
     this.id = nextId++;
     
     this.displayAlbum = function displayAlbum(){
-        return "A Great " + this.genre + " album is " + this.albumName + " by " + this.albumArtist;
+        var albumString = "A Great";
+        if(this.genre== ""){
+            albumString += " Album is " + this.albumName + " by " + this.albumArtist;
+
+        }else {
+            albumString += " is " + this.genre + " album is " + this.albumName + " by " + this.albumArtist;
+        }
+        return albumString;
     }
 };
 
@@ -26,7 +34,7 @@ var renderAlbums = function renderAlbums(){
 };
 
 albumButton.addEventListener("click",function(){
-    if(albumName.value == ""|| albumArtist.value == "" || genre.value== ""){
+    if(albumName.value == ""|| albumArtist.value == "" ){
         alert("missing info");
         return;
     }
@@ -41,3 +49,9 @@ var clearInput = function clearInput(){
     albumArtist.value = "";
     genre.value = "";
 }
+
+clearButton.addEventListener("click",function(){
+    albumArray = [];
+    clearInput();
+    renderAlbums();  
+});
